@@ -7,6 +7,7 @@ a global id cache for later ref lookups.
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as DefusedET
 from collections.abc import Iterator
 from dataclasses import dataclass
 
@@ -54,7 +55,7 @@ class RowStream:
         # referenced ids and only retains those.
         schema_seen = False
 
-        context = ET.iterparse(_bytes_to_file(self._xml), events=("end",))
+        context = DefusedET.iterparse(_bytes_to_file(self._xml), events=("end",))
         for _event, elem in context:
             eid = elem.get("id")
             if eid is not None:
