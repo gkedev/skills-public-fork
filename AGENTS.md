@@ -13,14 +13,16 @@
 - For local previews, use localhost
 - for major product / architecture decisions, consult the User
 - DO NOT use the multi-choice question UI. Ask the User in plain text.
-- Never suggest that the User switch to Plan Mode, and never switch to it yourself
+- Never suggest that the user switch to Plan Mode, and never switch to it yourself
 - DO NOT add new dependencies without the User's explicit approval or request
+- Assume the user may have changed things since you last looked (files, apps, timelines). Re-check the live state before you answer or act.
 
 ## CODE QUALITY
 - NEVER mention development time (aka how long things will take)
 - because of Agents, refactors & code changes that would take weeks, now take just MINUTES.
 - ignore the cost of time, and instead focus on quality, simplicity, robustness, scalability
 - keep the tech stack simple, popular, and maintainable
+- track events and product data internally, with no 3rd party dependencies like PostHog
 - prefer existing patterns, helpers, and conventions over new abstractions
 - write simple, readable, modular code with clear ownership
 - add comments only for non-obvious intent, tradeoffs, or constraints
@@ -29,14 +31,13 @@
 - When doing bug fixes, always start with reproducing the bug in an E2E setting
   as closely aligned with how an end user would experience it. This makes sure
   you find the real problem so your fix will actually solve it.
-- Do not delete, skip, weaken, or narrow tests to make a task pass.
 - Prefer behavior-focused tests over private implementation tests.
 
 ## DOCUMENTATION
 - Keep docs concise, operational, and source-backed.
 - write in plain, easy-to-understand English
 - see the project’s `docs/` folder for project-specific documentation
-- Do not bloat `AGENTS.md` or README files, only the User can add to them!!
+- Do not bloat `AGENTS.md` or README files, only the user can add to them!!
 - Ensure every important subfolder has its own `AGENTS.md` when it has durable
   ownership, contracts, commands, workflows, or rules that future agents need to
   follow.
@@ -58,15 +59,15 @@
 ## DATABASE
 - NEVER EVER try to make any changes to the production Database yourself
 - document every Database change with a clear .sql file
-- save all sql migration files into `docs/database/` in that project
+- save all sql migration files into the project's designated docs folder
 - in the comments, write what changed, why, how to apply, how to verify.
 - if you need changes to Prod DB, ASK THE USER!
 
 ## OTHER CONTRIBUTORS
 - many other Humans/Agents are working in this repo
 - so DO NOT delete, revert or overwrite changes YOU did not make.
-- be aware that the User is also working on this computer
-- DO NOT open random browser tabs, or applications, without the User's explicit approval
+- be aware that the user is also working on this computer
+- DO NOT open random browser tabs, or applications, without his explicit approval
 - If unrelated changes appear, assume other actors made them
 - When writing commit messages, NEVER EVER auto-add your agent name as co-author!
 
@@ -75,6 +76,7 @@
 - do not push to github by yourself
 - when the User says “push to github”, do all the steps required to do so (no overthinking!)
 - if you are in a worktree, you should copy the `.env` files from the Primary Checkout into the worktree
+- On macOS, search with `rg`, `git grep -I`, or `LC_ALL=C git grep`.
 
 ## SECRETS
 - Never commit `.env` files, API keys, tokens, cookies, etc.
@@ -93,7 +95,7 @@
 - every project should have an `AGENTS.md` file at the root of that project (if missing, create it)
 - each project must have a `.agents/` folder on root level of that project
 - every project must also have `.claude/skills/` folder, which is an exact symlink to `.agents/skills/`
-- for open-source repos, add a root level `private/` folder, which is gitignored, where we can save .md files and other context that should not be visible to the public
+- for open-source repos, keep non-public context out of version control (gitignored)
 
 ## SPEED
 - prioritize working fast & moving fast
@@ -125,3 +127,4 @@
 ## FORBIDDEN
 - DO NOT talk to other AI Agents, unless the User requests it specifically
 - other agents are workign on other shit, DO NOT interrupt them
+
